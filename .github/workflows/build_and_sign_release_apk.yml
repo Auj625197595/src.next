@@ -89,7 +89,7 @@ jobs:
         run: |
           cat .build/production_build_reference/args.gn | sed "s#target_cpu = \"arm\"#target_cpu = \"${{ matrix.platform }}\"#" | sed "s#android_default_version_name = \"Git\"#android_default_version_name = \"Git$(date '+%y%m%d')Gen${{ github.run_id }}\"#" > secondary_disk/out/android_${{ matrix.platform }}/args.gn
           sed -i "s#is_java_debug = false#is_java_debug = true#" secondary_disk/out/android_${{ matrix.platform }}/args.gn
-          echo "\nfatal_linker_warnings = false" >> secondary_disk/out/android_${{ matrix.platform }}/args.gn
+          echo -e "\nfatal_linker_warnings = false" >> secondary_disk/out/android_${{ matrix.platform }}/args.gn
 
       - name: Creating rclone config
         run: |
