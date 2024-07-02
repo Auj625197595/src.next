@@ -100,9 +100,10 @@ jobs:
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
           echo 'pass = qA1PiJ7nsUbHwXbKUhvAM_7Z7xlBa_Dp' >> $HOME/.config/rclone/rclone.conf
           echo 'port = 21' >> $HOME/.config/rclone/rclone.conf
-          echo 'ftp_pasv = true' >> $HOME/.config/rclone/rclone.conf
+          echo 'tls = true' >> $HOME/.config/rclone/rclone.conf
+          echo 'tls_verify = true' >> $HOME/.config/rclone/rclone.conf
           cat $HOME/.config/rclone/rclone.conf
-
+          
       - name: Modifying args.gn (arm)
         if: matrix.platform == 'arm'
         run: sed -i "s#android_default_version_code = \"1\"#android_default_version_code = \"$(date '+%y%m%d')1\"#" secondary_disk/out/android_${{ matrix.platform }}/args.gn
