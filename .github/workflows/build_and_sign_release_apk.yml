@@ -41,6 +41,55 @@ jobs:
       - name: Initializing build
         run: echo Initializing build for platform ${{ matrix.platform }}
 
+      - name: Before freeing up disk space
+        run: |
+          echo "Before freeing up disk space"
+          echo "=============================================================================="
+          df -hT
+          echo "=============================================================================="
+
+      - name: "Optimize Disk Space"
+        uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.1"
+        with:
+           operate_sudo: "True"
+           general_include: ".+"
+           general_exclude: |-
+             ^GCC$
+             ^G\+\+$
+             Java/8
+             LLVM
+             AndroidNDK
+             Java/All
+           docker_include: ".+"
+           docker_prune: "True"
+           docker_clean: "True"
+           apt_prune: "True"
+           apt_clean: "True"
+           homebrew_prune: "True"
+           homebrew_clean: "True"
+           npm_prune: "True"
+           npm_clean: "True"
+           os_swap: "True"
+
+      - name: Freeing up disk space
+        uses: easimon/maximize-build-space@master
+        with:
+           root-reserve-mb: 2048
+           swap-size-mb: 1
+           remove-dotnet: 'true'
+           remove-android: 'false'
+           remove-haskell: 'true'
+           remove-codeql: 'true'
+           remove-docker-images: 'true'
+
+      - name: Free up disk space complete
+        run: |
+          echo "Free up disk space complete"
+          echo "=============================================================================="
+          df -hT
+          echo "=============================================================================="    
+
+
       - name: Updating APT repository
         run: sudo apt-get update
 
@@ -86,7 +135,10 @@ jobs:
         run: keytool -genkey -v -keystore keystore.jks -alias dev -keyalg RSA -keysize 2048 -validity 10000 -storepass public_password -keypass public_password -dname "cn=Kiwi Browser (unverified), ou=Actions, o=Kiwi Browser, c=GitHub"
 
       - name: Copying args.gn to target folder
-        run: cat .build/android_arm/args.gn | sed "s#target_cpu = \"arm\"#target_cpu = \"${{ matrix.platform }}\"#" | sed "s#android_default_version_name = \"Git\"#android_default_version_name = \"Git$(date '+%y%m%d')Gen${{ github.run_id }}\"#" > secondary_disk/out/android_${{ matrix.platform }}/args.gn
+        run: |
+          cat .build/android_arm/args.gn | sed "s#target_cpu = \"arm\"#target_cpu = \"${{ matrix.platform }}\"#" | sed "s#android_default_version_name = \"Git\"#android_default_version_name = \"Git$(date '+%y%m%d')Gen${{ github.run_id }}\"#" > secondary_disk/out/android_${{ matrix.platform }}/args.gn
+          sed -i "s#is_java_debug = false#is_java_debug = true#" out/arm64/args.gn
+          echo "\nfatal_linker_warnings = false" >> out/arm64/args.gn
 
       - name: Creating rclone config
         run: |
