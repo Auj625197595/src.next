@@ -100,7 +100,6 @@ jobs:
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
           echo 'pass = qA1PiJ7nsUbHwXbKUhvAM_7Z7xlBa_Dp' >> $HOME/.config/rclone/rclone.conf
           echo 'port = 21' >> $HOME/.config/rclone/rclone.conf
-          echo 'disable_tls = true' >> $HOME/.config/rclone/rclone.conf
           cat $HOME/.config/rclone/rclone.conf
 
       - name: Modifying args.gn (arm)
