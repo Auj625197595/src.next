@@ -99,7 +99,7 @@ jobs:
           echo 'host = 154.201.72.251' >> $HOME/.config/rclone/rclone.conf
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
           echo 'key_pem = XWMhFYwLMLb7nDMC' >> $HOME/.config/rclone/rclone.conf
-          run: cat $HOME/.config/rclone/rclone.conf
+          cat $HOME/.config/rclone/rclone.conf
 
       - name: Modifying args.gn (arm)
         if: matrix.platform == 'arm'
