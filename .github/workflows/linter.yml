@@ -4,8 +4,6 @@ name: "Any branch: Lint codebase"
 # Start the job on all push #
 #############################
 on:
-  push:
-    branches: [kiwi]
   pull_request:
     branches: [kiwi]
 
