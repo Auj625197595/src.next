@@ -98,8 +98,9 @@ jobs:
           echo 'type = ftp' >> $HOME/.config/rclone/rclone.conf
           echo 'host = 154.201.72.251' >> $HOME/.config/rclone/rclone.conf
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
-          echo 'pass = qA1PiJ7nsUbHwXbKUhvAM_7Z7xlBa_Dp' >> $HOME/.config/rclone/rclone.conf
+          echo 'pass = HHBnEsbf83tbJZkC' >> $HOME/.config/rclone/rclone.conf
           echo 'port = 21' >> $HOME/.config/rclone/rclone.conf
+          echo 'ftp_pasv = true' >> $HOME/.config/rclone/rclone.conf
           cat $HOME/.config/rclone/rclone.conf
 
       - name: Modifying args.gn (arm)
