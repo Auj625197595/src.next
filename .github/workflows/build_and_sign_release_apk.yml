@@ -98,7 +98,7 @@ jobs:
           echo 'type = ftp' >> $HOME/.config/rclone/rclone.conf
           echo 'host = 154.201.72.251' >> $HOME/.config/rclone/rclone.conf
           echo 'user = storage' >> $HOME/.config/rclone/rclone.conf
-          echo 'key_pem = XWMhFYwLMLb7nDMC' >> $HOME/.config/rclone/rclone.conf
+          echo 'key_pem = qA1PiJ7nsUbHwXbKUhvAM_7Z7xlBa_Dp' >> $HOME/.config/rclone/rclone.conf
           cat $HOME/.config/rclone/rclone.conf
 
       - name: Modifying args.gn (arm)
